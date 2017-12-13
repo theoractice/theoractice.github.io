@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>[Win] OpenCV 管理多摄像头的最简洁方法 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="问题描述OpenCV 的一个常见问题是它不支持枚举摄像头，连 StackOverflow 上都只给出过很土的方法（类似于穷举），就是依次增大摄像头编号，然后测试它们能否正常工作。就算是用这种土办法得到摄像头的个数，获取摄像头名称或者调整摄像头参数的功能仍然是 OpenCV 的自带 API 所不具备的。
+源码分析OpenCV 从 2.3 版本开始将内置的摄像头操作类由 VFW 换成了 VideoIn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Win] OpenCV 管理多摄像头的最简洁方法">
+<meta property="og:url" content="http://yoursite.com/2015/09/18/[Win] OpenCV 管理多摄像头的最简洁方法/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="问题描述OpenCV 的一个常见问题是它不支持枚举摄像头，连 StackOverflow 上都只给出过很土的方法（类似于穷举），就是依次增大摄像头编号，然后测试它们能否正常工作。就算是用这种土办法得到摄像头的个数，获取摄像头名称或者调整摄像头参数的功能仍然是 OpenCV 的自带 API 所不具备的。
+源码分析OpenCV 从 2.3 版本开始将内置的摄像头操作类由 VFW 换成了 VideoIn">
+<meta property="og:updated_time" content="2016-05-09T17:34:15.662Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Win] OpenCV 管理多摄像头的最简洁方法">
+<meta name="twitter:description" content="问题描述OpenCV 的一个常见问题是它不支持枚举摄像头，连 StackOverflow 上都只给出过很土的方法（类似于穷举），就是依次增大摄像头编号，然后测试它们能否正常工作。就算是用这种土办法得到摄像头的个数，获取摄像头名称或者调整摄像头参数的功能仍然是 OpenCV 的自带 API 所不具备的。
+源码分析OpenCV 从 2.3 版本开始将内置的摄像头操作类由 VFW 换成了 VideoIn">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!--<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">-->
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-[Win] OpenCV 管理多摄像头的最简洁方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/18/[Win] OpenCV 管理多摄像头的最简洁方法/" class="article-date">
+  <time datetime="2015-09-18T10:31:42.000Z" itemprop="datePublished">2015-09-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [Win] OpenCV 管理多摄像头的最简洁方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>OpenCV 的一个常见问题是它不支持枚举摄像头，连 StackOverflow 上都只给出过很土的方法（类似于穷举），就是依次增大摄像头编号，然后测试它们能否正常工作。就算是用这种土办法得到摄像头的个数，获取摄像头名称或者调整摄像头参数的功能仍然是 OpenCV 的自带 API 所不具备的。</p>
+<h3 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h3><p>OpenCV 从 2.3 版本开始将内置的摄像头操作类由 VFW 换成了 VideoInput，它主要是对DirectShow的一层封装。通过阅读源码可以看出 OpenCV 只是对 VideoInput 库函数的简单利用，为了实现 OpenCV 自身 API 的跨平台，很多 VideoInput 原本自带的功能例如获取摄像头名称以及设置曝光参数等都被屏蔽掉了。值得庆幸的是，OpenCV 作者在编写这部分代码的时候仅仅是将头文件中的函数名以及数据类型做了简单屏蔽，绝大部分函数体仍然完整存在于 OpenCV 的源代码中并在编译过程中保留了下来。这样只要找到 VideoInput 库自带的头文件，就可以把 VideoInput 的自带函数重新利用起来了。</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>看一下 OpenCV 的源码（搜一下 VideoInput 就行啦），按照里面标出的 VideoInput 版本号（其实一般最新版的 VideoInput 库就可以用）下载对应版本的 VideoInput.h 头文件，并添加至工程即可。就这么简单。</p>
+<p>唯一需要注意的是由于 DirectShow 是一个 COM 组件，所以程序开头需要调用一下 CoInitialize，之后便可随意使用 VideoInput 库被屏蔽的所有功能。</p>
+<h3 id="适用范围"><a href="#适用范围" class="headerlink" title="适用范围"></a>适用范围</h3><p>很明显此方法只限 Windows 下使用。但依据类似原理去调用 Linux / Mac 的摄像头管理函数应当可行。对此有需求者不妨一试。</p>
+<p>另外有人的电脑最多只能打开两个 USB 摄像头，打开第三个的时候会失败。大多数情况下这是硬件不支持而导致的。一个解决方案是使用 PCI 多路采集卡。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/09/18/[Win] OpenCV 管理多摄像头的最简洁方法/" data-id="cjb597x8100029ol6z0a3lc56" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/09/18/Visual Studio 硬盘版制作教程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Visual Studio 硬盘版制作教程
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/14/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2015/09/18/Visual Studio 硬盘版制作教程/">Visual Studio 硬盘版制作教程</a>
+          </li>
+        
+          <li>
+            <a href="/2015/09/18/[Win] OpenCV 管理多摄像头的最简洁方法/">[Win] OpenCV 管理多摄像头的最简洁方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Visual Studio 硬盘版制作教程 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="很多人问我这个 VS 硬盘版是如何自己定制出来的，所以在这里写一篇简略的教程。相关代码在此
+首先要说的是，制作 VS 硬盘版的过程，其实和制作所有其他绿色软件的过程是完全一样的。但由于 VS 本身的巨大体量以及和系统的高度耦合性，导致整个过程中的大坑小坑不计其数。这个过程真的很复杂，所以至少现在我还没有那个精力把它写成一篇详尽的新手教程（说白了，搜索引擎能查到的东西我都不会写在这里）。真的想要做一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Visual Studio 硬盘版制作教程">
+<meta property="og:url" content="http://yoursite.com/2015/09/18/Visual Studio 硬盘版制作教程/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="很多人问我这个 VS 硬盘版是如何自己定制出来的，所以在这里写一篇简略的教程。相关代码在此
+首先要说的是，制作 VS 硬盘版的过程，其实和制作所有其他绿色软件的过程是完全一样的。但由于 VS 本身的巨大体量以及和系统的高度耦合性，导致整个过程中的大坑小坑不计其数。这个过程真的很复杂，所以至少现在我还没有那个精力把它写成一篇详尽的新手教程（说白了，搜索引擎能查到的东西我都不会写在这里）。真的想要做一">
+<meta property="og:updated_time" content="2017-05-29T11:34:55.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Visual Studio 硬盘版制作教程">
+<meta name="twitter:description" content="很多人问我这个 VS 硬盘版是如何自己定制出来的，所以在这里写一篇简略的教程。相关代码在此
+首先要说的是，制作 VS 硬盘版的过程，其实和制作所有其他绿色软件的过程是完全一样的。但由于 VS 本身的巨大体量以及和系统的高度耦合性，导致整个过程中的大坑小坑不计其数。这个过程真的很复杂，所以至少现在我还没有那个精力把它写成一篇详尽的新手教程（说白了，搜索引擎能查到的东西我都不会写在这里）。真的想要做一">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <!--<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">-->
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Visual Studio 硬盘版制作教程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/18/Visual Studio 硬盘版制作教程/" class="article-date">
+  <time datetime="2015-09-18T14:43:06.000Z" itemprop="datePublished">2015-09-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Visual Studio 硬盘版制作教程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>很多人问我这个 VS 硬盘版是如何自己定制出来的，所以在这里写一篇简略的教程。<a href="https://github.com/theoractice/VSCustomize" target="_blank" rel="external">相关代码在此</a></p>
+<p>首先要说的是，制作 VS 硬盘版的过程，其实和制作所有其他绿色软件的过程是完全一样的。但由于 VS 本身的巨大体量以及和系统的高度耦合性，导致整个过程中的大坑小坑不计其数。这个过程真的很复杂，所以至少现在我还没有那个精力把它写成一篇详尽的新手教程（说白了，搜索引擎能查到的东西我都不会写在这里）。真的想要做一个符合自己需求的VS硬盘版，你一定要会编程进行基本的文件和文本处理（貌似是废话）。本文仅仅是作为一个摘要，给后人指路。</p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>首先是虚拟机。现在的vs已经不支持xp系统了，所以选择在vmware里安装一个纯净的win7系统。至于装64位还是32位看你的需求。装完之后记得把杂七杂八的预装软件都删了，清清垃圾文件之类的。贵在纯净（这里推荐过期罐头的纯净系统）。虚拟机硬盘可以分两个区，设置为只恢复C盘快照，这样会方便一些，不分也无所谓。</p>
+<p>下一步单独提一下，如果你需要使用.net平台语言，那么一定要把系统预装的.net framework卸载掉（不要偷懒，除非已经是最新版了，不然就卸载），装上你要定制的那个VS版本所对应的.net framework。列几个较新VS版本的对应关系：</p>
+<p>Vs2017: 4.6.1<br>Vs2015: 4.6.1<br>Vs2013: 4.5.1</p>
+<p>如果想偷懒就直接装微软官方最新版的.net framework也可以。严格按照对应版本安装只是为了减少一点体积。自用的话这个就不重要啦。</p>
+<p>然后是需要在虚拟机里运行的软件：RegWorkShop用于编辑注册表，<a href="https://totaluninstaller.codeplex.com/" target="_blank" rel="external">TotalUninstaller</a>用于批量删除不需要的软件（裁剪VS的功能就靠这个）以及大杀器Total Uninstall（下面简称TU）。</p>
+<p>这里要注意，TotalUninstaller和Total Uninstall是两个不同的软件哦。前面一个我给地址了，后面一个自己百度找下载，我们需要这个TU软件的专业版或者旗舰版。</p>
+<p>那么现在.net framework装好了，软件也都放进虚拟机了，这时候用虚拟机做一个初始虚拟机快照，同时再用TU创建一个初始TU快照。虽然名字都叫快照，但它们是完全不同的东西。</p>
+<p>这些都搞定之后就可以装VS了，需要哪些功能就装哪些功能，尽量别全装，反正一会儿还要删的:)</p>
+<p>如果你是从头开始下载安装这些东西，那么等最后一步装完VS，应该一天时间已经快过去了。装完之后其他的事情啥都别干，立即再用虚拟机做一个VS快照。OK，现在准备工作已经完成，接下来的一两星期时间里，你可以反复尝试下面列出的这些步骤直到成功或者放弃了。如果出了什么问题（那几乎是一定的），不要灰心，只要恢复到之前的快照，然后一切重来就行啦:)</p>
+<h3 id="精简"><a href="#精简" class="headerlink" title="精简"></a>精简</h3><p>打开TotalUninstaller。你会发现它列出了很多原先在控制面板的“添加和删除程序”里看不到的软件。所谓定制嘛，就是你需要一个一个弄清楚它们的作用，自己判断是否需要这个功能，并把不需要的卸载掉（在前面打勾，然后批量卸载即可）。</p>
+<p>那么这个时候分歧就出现了。可能有人想保留ASP.net开发功能，有些人不需要C++语言，而另一些人不需要.net语言，这时候该保留哪些功能呢？又该删除哪些呢？很遗憾，我没有准确的答案，需要你自己来试验。最简单的判断方法，就是看删掉某个功能之后，你是否还能按你的需求正常使用VS，而不是发现你要的功能找不到了（所以有可能需要反复实验）。</p>
+<p>举我自己制作VS2013的例子。对于我来说，我只用C++/.net做桌面开发，也不搞通用应用，那么我ASP.net之类的功能压根一开始就没装，另外删除的软件大概是这样的：</p>
+<ul>
+<li><p>所有名字里带2012的软件。vs2012的东西留着干啥。</p>
+</li>
+<li><p>所有名字里带phone/arm的软件。我不开发wp，没用。</p>
+</li>
+<li><p>Silverlight/Blend。我顶多用一下wpf而已。</p>
+</li>
+</ul>
+<p>最后我按照自己的需求，卸载了大概60多个软件。这里提示一句，如果你只需要C++开发功能，可以尝试不用VS，而使用QtCreator+别人提取好的VS编译器。我觉得现在QtCreator的C++代码提示功能不比VS差。</p>
+<p>看看感觉删得差不多了，再用虚拟机做一个精简快照，用TU也做一个精简快照，好，这一步也搞定了。</p>
+<p>注意，到目前为止我们做了三个虚拟机快照：初始快照，VS快照和精简快照。以及两个TU快照：初始快照和精简快照。TU的快照都存放在TU安装目录下的System Snapshots文件夹下。只要把所有快照文件都拷贝进去就可以被TU软件所读取分析。不解释为什么要这么做，你做了就知道了。</p>
+<h3 id="提取"><a href="#提取" class="headerlink" title="提取"></a>提取</h3><p>在安装任何软件的过程中，Windows做的事情其实只有两种：写文件和写注册表。而硬盘版其实就是快速重现一个软件的安装过程。我们利用Total Uninstall的“比较系统快照”功能来比对一下初始快照和精简快照，即可找出安装VS前后写文件以及写注册表的情况。一般来说硬盘版之所以安装快，是因为不需要再往安装目录拷贝大批文件，只要写入注册表的改动部分就行了。</p>
+<p>那么是不是把注册表的改动重新打包为安装程序，软件的硬盘版就算是做好了呢？对于一些小软件来说是可行的，而对于VS来说，并不是。</p>
+<p>从Total Uninstall的快照比较结果可以看出，就算是精简安装VS2013，也会占用大概9个G左右的C盘空间，而且安装过程中往C盘的windows文件夹（主要是.net framework相关目录）拷贝了大量文件。这部分文件是不好乱动的。即使是硬盘版，安装时也必须把这一部分文件拷贝到原先C盘对应的目录下。这是制作过程中需要注意的小问题之一。事实上为了保险起见，我发布的版本会把除了VS默认安装目录（就是安装的时候可以改的那个目录）之外的其他文件都复制到C盘的原始位置，这是为了尽量和VS原本的安装过程保持一致。</p>
+<p>然而我们的最终目标是在不出问题的情况下做到尽量精简，这又该怎么办呢。下面就是坑最多的环节了。打开TU的快照比较结果，很明显分为三个部分：文件系统，注册表和服务。其实服务还是注册表，不用管它，只看前面两个。可以告诉大家的是，我最后把9个G的硬盘占用精简到了5个G。做一个硬盘版软件我们并不需要顾忌太多，文件系统和注册表里其实有很多可以删除的东西。这个时候直接在TU的快照比较结果里删除就行了，删完之后分别把注册表修改记录和文件系统修改记录导出即可。</p>
+<p>删除的东西：<br>C:\ProgramData\Microsoft\Windows\Start Menu\Programs 删除并利用脚本添加<br>C:\ProgramData\Package Cache<br>C:\Users<br>C:\Windows\Installer<br>C:\Windows\Microsoft.NET\Framework\v4.0.30319\SetupCache<br>C:\Windows\Panther<br>C:\Windows\rescache<br>C:\Windows\ServiceProfiles</p>
+<p>HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Installer<br>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WBEM<br>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer<br>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall<br>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList<br>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print<br>HKEY_USERS<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\Path 删除并利用脚本添加<br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet 只保留control和services</p>
+<p>那么这个时候分歧又出现了。原因还是上面那个：可能有人想保留ASP.net开发功能，有些人不需要C++语言，而另一些人不需要.net语言，这时候是不是还有其他的东西可以删除呢？我仍然不知道。自己慢慢试吧，出错了还原系统快照就行了。祝你玩得开心。</p>
+<h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><p>我使用InnoSetup制作最终的硬盘版安装文件。如果你真的做到这一步了，再去研究InnoSetup也并不迟。这一步的坑其实一点不比上一步少，然而我已经踩过一遍之后写工具把坑都填平了。上一步里我们导出了注册表和文件系统的修改记录，那么现在就是把这些记录转化为InnoSetup的安装脚本了。</p>
+<p>首先处理文件系统修改记录，只要读取记录并把所有新增文件拷贝出来就行了。反正这部分工作我是写代码完成的。你可以把文件拷到虚拟机里，也可以拷到客户机里。这个在我的代码里改改就行。</p>
+<p>然后是处理注册表的修改记录。事实上就是把注册表内容直接转换为安装脚本文件。然而这里面的坑多得令人发指，主要是我使用的转换软件bug太多。但是并没有什么可以担心的，我的代码里都处理过了。如果有新坑，你就看看代码，模仿我的方式处理一下就好。</p>
+<p>最后还有一点小的，就是把开始菜单的那些快捷方式也转换为安装脚本。这个也有工具，但是工具也不完善，所以我也写代码填了一些坑。其实这个不复杂，手工搞搞就好。</p>
+<p>所有安装脚本制作完毕之后就可以放到InnoSetup里编译为最终的硬盘版安装文件了。编译完可以放到客户机上安装测试一下。如果出错了那么就从最前面的第一步开始查错，重来~ 一般来说单单是最后这整个的打包工作就需要一个小时才能完成一次，乘以新手试错的次数，现在你可以想象一下真正成功做完所需要的时间了:)</p>
+<h3 id="为什么要做这个？"><a href="#为什么要做这个？" class="headerlink" title="为什么要做这个？"></a>为什么要做这个？</h3><p>简单来说，因为我之前用了五年cntrump制作的VS2008硬盘版。从我和身边人对这个版本的评价来看，我感觉这个东西对很多程序员来说，可能是一个所谓“用户不知道自己有”的需求。但是搞这种东西毕竟不是那么光明正大，所以我只是把它放在那里，你觉得可能有用，就问我要来看看。要是想自己定制一个，踩这个巨坑，这篇文章也算是指了条路。至于这条路有多难走，自己试过才会知道。</p>
+<h3 id="版本相关Tip"><a href="#版本相关Tip" class="headerlink" title="版本相关Tip"></a>版本相关Tip</h3><p>VS2015：Windows Diagnostic Tools 是debug用的，不要删掉。</p>
+<p>VS2017：这个版本由于拥抱开源并且启用了新的模块化安装模式，虽然体积减小了不少，但某些模块的设计逻辑也不再是微软的风格，比如vs启动插件模块时会去ProgramData里的某个文件（而不是注册表）下读取VS的安装目录，需要在安装时做特殊处理。详见pathman工程的代码。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/09/18/Visual Studio 硬盘版制作教程/" data-id="cjb597x7w00019ol6n3atqbfm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/14/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/18/[Win] OpenCV 管理多摄像头的最简洁方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[Win] OpenCV 管理多摄像头的最简洁方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/14/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2015/09/18/Visual Studio 硬盘版制作教程/">Visual Studio 硬盘版制作教程</a>
+          </li>
+        
+          <li>
+            <a href="/2015/09/18/[Win] OpenCV 管理多摄像头的最简洁方法/">[Win] OpenCV 管理多摄像头的最简洁方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
